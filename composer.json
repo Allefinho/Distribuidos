@@ -1,0 +1,14 @@
+{
+    "name": "k/a",
+    "description": "b",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Allef",
+            "email": "allef@allef.com"
+        }
+    ],
+    "require": {
+        "mashape/unirest-php": "^3.0"
+    }
+}

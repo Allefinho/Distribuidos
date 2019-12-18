@@ -13,17 +13,17 @@
 
 </head><br>
 <br><br>
-	<h4 class="text-center">SUPERMERCADO</h4>
+	<h4 class="text-center">E-MARKET</h4>
 <div class="login">
 	<h1 class="text-center">GLEISON</h1>
 	<div class="moldura-dois">
-	<form  method="post" action="json.php">
+	<form  method="post" action="send.php">
 		<h3 class="text-center">Qual o produto desejado?</h3>
 		<input id="name" type="text" name="text" placeholder="">
 		<input type="submit" name="submit" value="Buscar">	
 
 	<div class="conteudo text-center">
-		<h2>Nome      |       Valor</h2>
+		<h2>Loja  | Produto  |  Valor | Quant</h2>
 		<!-- Mostra os produtos depois de buscar-->
 		
 		</form>	
@@ -65,7 +65,5 @@
   StartTextAnimation(0);
 });
 
-
-Resources
 </script>
 </html>
