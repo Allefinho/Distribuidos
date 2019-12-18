@@ -17,7 +17,7 @@
 <div class="login">
 	<h1 class="text-center">GLEISON</h1>
 	<div class="moldura-dois">
-	<form  method="post" action="send.php">
+	<form  method="post" action="index.php">
 		<h3 class="text-center">Qual o produto desejado?</h3>
 		<input type="text" name="produto" placeholder="">
 		<input type="submit" name="submit" value="Buscar">	
@@ -26,20 +26,34 @@
 		<h2>Loja  | Produto  |  Valor | Quant</h2>
 		<!-- Mostra os produtos depois de buscar-->
 		  
-    <?php
-    require_once('send.php');
+<?php
 
-    $busca_dados = new Mercado();
+  require_once __DIR__ . "/vendor/autoload.php";
+  $headers = array('Accept' => 'application/json');
 
-    if(isset($_POST['produto'])){
+  $response = Unirest\Request::get("http://10.204.23.250:3321/busca?nome={$_POST['produto']}");  
+  
+  $response->code;
+  $response->headers;
+  $response->raw_body;
 
-       $busca_dados = $informacoes_produto[0]->loja."\n";
-       $busca_dados = $informacoes_produto[0]->nome."\n";
-       $busca_dados = $informacoes_produto[0]->preco."\n";
+  $informacoes_produto = $response->body;
+  ?>
+  <div style="color: #008000;" >
+    <?php if($informacoes_produto = $response->body){ ?>
+      <p><?php  echo $informacoes_produto[0]->loja."  |\n";
+                echo $informacoes_produto[0]->nome."  |\n";
+                echo $informacoes_produto[0]->preco."R$ |\n";
+                echo $informacoes_produto[0]->quantidade;
+                 ?></p>
+              </div>
+              <?php } ?>
 
-    }
-    ?>
-
+ <div style="color: #FF0000;" >
+    <?php if($informacoes_produto != $response->body){ ?>
+      <p><?php echo "Produto não cadastrado." ?></p>
+              </div>
+            <?php } ?>
 
 		</form>	
 	</div>

@@ -1,5 +1,4 @@
 <?php
-	class Mercado{
 	$produto = $_POST['produto'];
 
 	require_once __DIR__ . "/vendor/autoload.php";
@@ -35,5 +34,4 @@
 	$taxa = $informacoes_produto[0]->preco*0.1;
 	$PrecoNovo = $taxa + $informacoes_produto[0]->preco;
 	echo $PrecoNovo."R$";
-	}
 ?>
