@@ -19,13 +19,28 @@
 	<div class="moldura-dois">
 	<form  method="post" action="send.php">
 		<h3 class="text-center">Qual o produto desejado?</h3>
-		<input id="name" type="text" name="text" placeholder="">
+		<input type="text" name="produto" placeholder="">
 		<input type="submit" name="submit" value="Buscar">	
 
 	<div class="conteudo text-center">
 		<h2>Loja  | Produto  |  Valor | Quant</h2>
 		<!-- Mostra os produtos depois de buscar-->
-		
+		  
+    <?php
+    require_once('send.php');
+
+    $busca_dados = new Mercado();
+
+    if(isset($_POST['produto'])){
+
+       $busca_dados = $informacoes_produto[0]->loja."\n";
+       $busca_dados = $informacoes_produto[0]->nome."\n";
+       $busca_dados = $informacoes_produto[0]->preco."\n";
+
+    }
+    ?>
+
+
 		</form>	
 	</div>
 	<div align="center" style="padding-top: 7px;">

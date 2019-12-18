@@ -1,16 +1,24 @@
 <?php
+	class Mercado{
 	$produto = $_POST['produto'];
 
 	require_once __DIR__ . "/vendor/autoload.php";
 	$headers = array('Accept' => 'application/json');
 
-
-	$response = Unirest\Request::get("http://10.204.23.250:3321/busca?nome={$produto}");
-
+	$response = Unirest\Request::get("http://10.204.23.250:3321/busca?nome={$produto}");	
+	
 	$response->code;
 	$response->headers;
 	$response->raw_body;
 	
+	/*if (validaEmail($de) && $mensagem) {
+	enviaEmail($de, $assunto, $mensagem, $nome, $para, $phone, $email_servidor);
+
+	header('location:contato.php?suc=1');
+	} else {
+	header('location:contato.php?error=1');
+	}*/
+
 	/*echo "<pre>";
 
 	print_r($response->body);
@@ -27,4 +35,5 @@
 	$taxa = $informacoes_produto[0]->preco*0.1;
 	$PrecoNovo = $taxa + $informacoes_produto[0]->preco;
 	echo $PrecoNovo."R$";
+	}
 ?>
