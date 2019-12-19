@@ -1,98 +1,108 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title>E-MARKET Gleison</title>
-	<meta charset="utf-8">
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-	<script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	<link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
-	<link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
-	<script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
-	<link rel="icon" href="img/icon.png" sizes="192x192">
-	<link href="css/estilo.css" rel="stylesheet">
+  <title>E-MARKET Gleison</title>
+  <meta charset="utf-8">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <link href="https://stackpath.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet" />
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/css/bootstrap-select.min.css" rel="stylesheet" />
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap-select@1.13.9/dist/js/bootstrap-select.min.js"></script>
+  <link rel="icon" href="img/icon.png" sizes="192x192">
+  <link href="css/estilo.css" rel="stylesheet">
 
 </head><br>
 <br><br>
-	<h4 class="text-center">E-MARKET</h4>
+<h4 class="text-center">E-MARKET</h4>
 <div class="login">
-	<h1 class="text-center">GLEISON</h1>
-	<div class="moldura-dois">
-	<form  method="post" action="index.php">
-		<h3 class="text-center">Qual o produto desejado?</h3>
-		<input type="text" name="produto" placeholder="">
-		<input type="submit" name="submit" value="Buscar">	
+  <h1 class="text-center">GLEISON</h1>
+  <div class="moldura-dois">
+    <form method="post" action="index.php">
+      <h3 class="text-center">Qual o produto desejado?</h3>
+      <input type="text" name="produto" placeholder="">
+      <input type="submit" name="submit" value="Buscar">
 
-	<div class="conteudo text-center">
-		<h2>Loja  | Produto  |  Valor | Quant</h2>
-		<!-- Mostra os produtos depois de buscar-->
-		  
-<?php
+      <div class="conteudo text-center">
+        <table align="center">
+          <thead>
+            <th> | Loja |</th>
+            <th> Produto  |</th>
+            <th> Valor  | </th>
+            <th> Quant  | </th>
+            
+          </thead>
 
-  require_once __DIR__ . "/vendor/autoload.php";
-  $headers = array('Accept' => 'application/json');
+          <tbody>
+            <?php
+            require_once __DIR__ . "/vendor/autoload.php";
 
-  $response = Unirest\Request::get("http://10.204.23.250:3321/busca?nome={$_POST['produto']}");  
-  
-  $response->code;
-  $response->headers;
-  $response->raw_body;
+            /*$dotenv = new Dotenv\Dotenv(__DIR__);
+            $dotenv->load();*/
 
-  $informacoes_produto = $response->body;
-  ?>
-  <div style="color: #008000;" >
-    <?php if($informacoes_produto = $response->body){ ?>
-      <p><?php  echo $informacoes_produto[0]->loja."  |\n";
-                echo $informacoes_produto[0]->nome."  |\n";
-                echo $informacoes_produto[0]->preco."R$ |\n";
-                echo $informacoes_produto[0]->quantidade;
-                 ?></p>
-              </div>
-              <?php } ?>
+            $servidor_info = "http://10.204.23.250:3321";
 
- <div style="color: #FF0000;" >
-    <?php if($informacoes_produto != $response->body){ ?>
-      <p><?php echo "Produto não cadastrado." ?></p>
-              </div>
-            <?php } ?>
+            if (isset($_POST['produto'])) {
 
-		</form>	
-	</div>
-	<div align="center" style="padding-top: 7px;">
-		<input type="submit" name="submit" value="Comprar">		
-	</div>
+              $produto = $_POST['produto'];
+
+              $headers = array('Accept' => 'application/json');
+
+              $response = Unirest\Request::get("{$servidor_info}s/busca?nome={$produto}");
+
+              $informacoes_produto = $response->body;
+
+              echo `<td>{$informacoes_produto[0]->loja}</td>
+                    <td>{$informacoes_produto[0]->nome}</td>
+                    <td>{$informacoes_produto[0]->quantidade}</td>
+                    <td>R$ {$informacoes_produto[0]->preco}</td>
+                    <td><a href="comprar.php?_id={$informacoes_produto[0]->_id}">Comprar</a></td>`;
+            }
+            ?>
+          </tbody>
+
+        </table>
+
+
+    </form>
+  </div>
+  <!--<div align="center" style="padding-top: 7px;">
+    <input type="submit" name="submit" value="Comprar">
+  </div>-->
 </div>
 </div>
 
 
 
 <script type="text/javascript">
-  document.addEventListener('DOMContentLoaded',function(event){
-  var dataText = [ " JSON", " GLEISON", " JSON", "GLEISON"];
-  function typeWriter(text, i, fnCallback) {
-    if (i < (text.length)) {
-     document.querySelector("h1").innerHTML = text.substring(0, i+1) +'<span aria-hidden="true"></span>';
-      setTimeout(function() {
-        typeWriter(text, i + 1, fnCallback)
-      }, 100);
+  document.addEventListener('DOMContentLoaded', function(event) {
+    var dataText = [" JSON", " GLEISON", " JSON", "GLEISON"];
+
+    function typeWriter(text, i, fnCallback) {
+      if (i < (text.length)) {
+        document.querySelector("h1").innerHTML = text.substring(0, i + 1) + '<span aria-hidden="true"></span>';
+        setTimeout(function() {
+          typeWriter(text, i + 1, fnCallback)
+        }, 100);
+      } else if (typeof fnCallback == 'function') {
+        setTimeout(fnCallback, 700);
+      }
     }
-    else if (typeof fnCallback == 'function') {
-      setTimeout(fnCallback, 700);
-    }
-  }
-   function StartTextAnimation(i) {
-     if (typeof dataText[i] == 'undefined'){
+
+    function StartTextAnimation(i) {
+      if (typeof dataText[i] == 'undefined') {
         setTimeout(function() {
           StartTextAnimation(0);
         }, 20000);
-     }
-    if (i < dataText[i].length) {
-     typeWriter(dataText[i], 0, function(){
-       StartTextAnimation(i + 1);
-     });
+      }
+      if (i < dataText[i].length) {
+        typeWriter(dataText[i], 0, function() {
+          StartTextAnimation(i + 1);
+        });
+      }
     }
-  }
-  StartTextAnimation(0);
-});
-
+    StartTextAnimation(0);
+  });
 </script>
+
 </html>
