@@ -35,13 +35,12 @@
 
           <tbody>
             <?php
-            require_once __DIR__ . "/vendor/autoload.php";
+            require_once "./vendor/autoload.php";
 
             /*$dotenv = new Dotenv\Dotenv(__DIR__);
             $dotenv->load();*/
 
             $servidor_info = "http://10.204.23.250:3321";
-
             if (isset($_POST['produto'])) {
 
               $produto = $_POST['produto'];
@@ -52,11 +51,17 @@
 
               $informacoes_produto = $response->body;
 
-              echo `<td>{$informacoes_produto[0]->loja}</td>
+              print_r($informacoes_produto);
+
+              echo "<tr>
+
+                    <td>{$informacoes_produto[0]->loja}</td>
                     <td>{$informacoes_produto[0]->nome}</td>
                     <td>{$informacoes_produto[0]->quantidade}</td>
                     <td>R$ {$informacoes_produto[0]->preco}</td>
-                    <td><a href="comprar.php?_id={$informacoes_produto[0]->_id}">Comprar</a></td>`;
+                    <td><a href='comprar.php?nome={$informacoes_produto[0]->nome}'>Comprar</a></td>
+
+                    </tr>";
             }
             ?>
           </tbody>
